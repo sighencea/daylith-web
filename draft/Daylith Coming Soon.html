@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0F2A23" />
+<meta name="description" content="Daylith is a mindfulness app for calmer, more intentional mornings." />
+<title>Daylith — Coming Soon</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --forest: #0F2A23;
+    --forest-soft: #1A3A34;
+    --forest-deep: #0a1f1a;
+    --peach: #DE9B73;
+    --peach-soft: #e6b393;
+    --sage: #8E9B83;
+    --sage-light: #B7BCA9;
+    --cream: #F4EFE6;
+    --sand: #E7DCCB;
+    --sand-light: #efe6d6;
+    --text-muted: #44524C;
+
+    --serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--forest);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* very subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: radial-gradient(rgba(15,42,35,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+
+  .page {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 24px;
+    z-index: 2;
+  }
+
+  /* slightly above true center */
+  .stage {
+    flex: 1;
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: clamp(32px, 6vh, 80px);
+    padding-bottom: clamp(180px, 26vh, 320px);
+    text-align: center;
+  }
+
+  /* fade-in */
+  .fade-content {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 700ms ease-out 120ms forwards;
+  }
+  .fade-content.delay-2 { animation-delay: 240ms; }
+  .fade-content.delay-3 { animation-delay: 360ms; }
+  .fade-content.delay-4 { animation-delay: 480ms; }
+  .fade-content.delay-5 { animation-delay: 600ms; }
+  .fade-content.delay-6 { animation-delay: 720ms; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-landscape {
+    opacity: 0;
+    animation: fadeIn 1000ms ease-out 200ms forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* logo lockup (mark + wordmark + tagline as one image) */
+  .logo {
+    display: block;
+    width: clamp(320px, 38vw, 500px);
+    height: auto;
+    margin: 0 auto 64px;
+    user-select: none;
+  }
+  @media (min-width: 768px) {
+    .logo { margin-bottom: 72px; }
+  }
+  @media (max-width: 480px) {
+    .logo { width: 280px; margin-bottom: 48px; }
+  }
+
+  /* heading */
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--forest);
+    font-size: clamp(42px, 6vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    margin: 0 0 28px;
+  }
+
+  .divider {
+    width: 56px;
+    height: 1px;
+    background: var(--sage);
+    opacity: 0.55;
+    margin: 8px auto 28px;
+    border: 0;
+  }
+
+  .body-copy {
+    font-family: var(--sans);
+    font-weight: 300;
+    color: var(--text-muted);
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.65;
+    max-width: 460px;
+    margin: 0 auto 56px;
+  }
+
+  .body-copy br + br { content: ""; }
+
+  .launch {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 12.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--peach);
+    margin: 0 0 40px;
+  }
+  @media (min-width: 768px) {
+    .launch { font-size: 13px; margin-bottom: 48px; }
+  }
+
+  .leaf-badge {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(142, 155, 131, 0.5);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sage);
+  }
+  .leaf-badge svg { width: 16px; height: 16px; }
+
+  /* landscape — fixed at bottom */
+  .landscape {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 26vh;
+    min-height: 200px;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .landscape svg {
+    position: absolute;
+    bottom: -1px; /* hide subpixel seam */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  @media (max-width: 700px) {
+    .landscape { height: 20vh; min-height: 160px; }
+  }
+
+  /* mobile spacing tighten */
+  @media (max-width: 480px) {
+    .stage {
+      padding-top: clamp(40px, 8vh, 80px);
+      padding-bottom: clamp(160px, 22vh, 240px);
+    }
+    .mark { width: 86px; }
+    .body-copy { padding: 0 8px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+  <section class="stage" aria-labelledby="page-heading">
+
+    <header class="brand fade-content">
+      <img class="logo" src="assets/daylith-logo-full.png" alt="Daylith — Your morning, elevated." />
+    </header>
+
+    <h1 id="page-heading" class="fade-content delay-3">Coming&nbsp;Soon</h1>
+
+    <hr class="divider fade-content delay-4" />
+
+    <p class="body-copy fade-content delay-4">
+      We're crafting a mindful experience<br/>
+      to elevate your every day.
+    </p>
+
+  </section>
+</main>
+
+<!-- Layered hills landscape -->
+<div class="landscape fade-landscape" aria-hidden="true">
+  <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+    <!-- back: pale sand -->
+    <path fill="#E7DCCB" d="M0,180 C160,120 280,120 420,170 C560,220 680,220 820,180 C960,140 1120,140 1280,180 C1360,200 1410,210 1440,205 L1440,320 L0,320 Z" />
+    <!-- mid-back: light sage -->
+    <path fill="#B7BCA9" d="M0,220 C140,180 260,200 400,230 C540,260 680,240 820,220 C960,200 1120,210 1260,240 C1340,256 1400,260 1440,255 L1440,320 L0,320 Z" opacity="0.95" />
+    <!-- mid: muted sage -->
+    <path fill="#8E9B83" d="M0,250 C120,230 240,260 380,265 C520,270 640,250 780,255 C920,260 1060,290 1200,280 C1300,273 1380,268 1440,272 L1440,320 L0,320 Z" />
+    <!-- front-left forest hill -->
+    <path fill="#1A3A34" d="M0,260 C80,238 180,250 280,270 C360,286 420,294 460,300 L460,320 L0,320 Z" />
+    <!-- front-right forest hill -->
+    <path fill="#1A3A34" d="M820,295 C940,272 1060,260 1180,270 C1300,280 1380,290 1440,288 L1440,320 L820,320 Z" />
+    <!-- deepest forest base -->
+    <path fill="#0F2A23" d="M0,295 C160,278 320,288 480,298 C640,308 800,304 960,300 C1120,296 1280,300 1440,304 L1440,320 L0,320 Z" />
+  </svg>
+</div>
+
+<!-- Tweaks -->
+<div id="tweaks-root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "forest": "#0F2A23",
+  "peach": "#DE9B73",
+  "cream": "#F4EFE6",
+  "sage": "#8E9B83",
+  "showGrain": true,
+  "headingStyle": "regular"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [tweaks, setTweak] = window.useTweaks(TWEAK_DEFAULTS);
+  const { TweaksPanel, TweakSection, TweakColor, TweakToggle, TweakRadio } = window;
+
+  React.useEffect(() => {
+    const r = document.documentElement.style;
+    r.setProperty('--forest', tweaks.forest);
+    r.setProperty('--peach', tweaks.peach);
+    r.setProperty('--cream', tweaks.cream);
+    r.setProperty('--sage', tweaks.sage);
+
+    document.body.style.setProperty('--grain', tweaks.showGrain ? '0.5' : '0');
+    document.body.style.setProperty('background', tweaks.cream);
+
+    const h1 = document.querySelector('h1');
+    if (h1) {
+      h1.style.fontStyle = tweaks.headingStyle === 'italic' ? 'italic' : 'normal';
+      h1.style.fontWeight = tweaks.headingStyle === 'medium' ? '500' : '400';
+    }
+  }, [tweaks]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection label="Palette" />
+      <TweakColor label="Forest"  value={tweaks.forest} onChange={v => setTweak('forest', v)} />
+      <TweakColor label="Peach"   value={tweaks.peach}  onChange={v => setTweak('peach', v)} />
+      <TweakColor label="Cream"   value={tweaks.cream}  onChange={v => setTweak('cream', v)} />
+      <TweakColor label="Sage"    value={tweaks.sage}   onChange={v => setTweak('sage', v)} />
+      <TweakSection label="Detail" />
+      <TweakToggle label="Paper grain"  value={tweaks.showGrain} onChange={v => setTweak('showGrain', v)} />
+      <TweakSection label="Heading" />
+      <TweakRadio
+        label="Style"
+        value={tweaks.headingStyle}
+        onChange={v => setTweak('headingStyle', v)}
+        options={[
+          {label: 'Regular', value: 'regular'},
+          {label: 'Italic',  value: 'italic'},
+          {label: 'Medium',  value: 'medium'},
+        ]}
+      />
+    </TweaksPanel>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('tweaks-root'));
+root.render(<App />);
+</script>
+
+<style id="grain-binding">
+  body::before { opacity: var(--grain, 0.5); }
+</style>
+
+</body>
+</html>

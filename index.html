@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0F2A23" />
+<meta name="description" content="Daylith is a mindfulness app for calmer, more intentional mornings." />
+<title>Daylith — Coming Soon</title>
+
+<link rel="icon" type="image/png" href="assets/daylith-logo-full.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --forest: #0F2A23;
+    --forest-soft: #1A3A34;
+    --peach: #DE9B73;
+    --sage: #8E9B83;
+    --sage-light: #B7BCA9;
+    --cream: #F4EFE6;
+    --sand: #E7DCCB;
+    --text-muted: #44524C;
+
+    --serif: "Playfair Display", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--cream);
+    color: var(--forest);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image: radial-gradient(rgba(15,42,35,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+  }
+
+  .page {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 24px;
+    z-index: 2;
+  }
+
+  .stage {
+    flex: 1;
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: clamp(48px, 10vh, 120px);
+    padding-bottom: clamp(180px, 26vh, 320px);
+    text-align: center;
+  }
+
+  .fade-content {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 700ms ease-out 120ms forwards;
+  }
+  .fade-content.delay-2 { animation-delay: 240ms; }
+  .fade-content.delay-3 { animation-delay: 360ms; }
+  .fade-content.delay-4 { animation-delay: 480ms; }
+  .fade-content.delay-5 { animation-delay: 600ms; }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-landscape {
+    opacity: 0;
+    animation: fadeIn 1000ms ease-out 200ms forwards;
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  .logo {
+    display: block;
+    width: clamp(360px, 44vw, 580px);
+    height: auto;
+    margin: 0 auto 64px;
+    user-select: none;
+  }
+  @media (min-width: 768px) {
+    .logo { margin-bottom: 72px; }
+  }
+  @media (max-width: 480px) {
+    .logo { width: 320px; margin-bottom: 48px; }
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--forest);
+    font-size: clamp(42px, 6vw, 68px);
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    margin: 0 0 28px;
+  }
+
+  .divider {
+    width: 56px;
+    height: 1px;
+    background: var(--sage);
+    opacity: 0.55;
+    margin: 8px auto 28px;
+    border: 0;
+  }
+
+  .body-copy {
+    font-family: var(--sans);
+    font-weight: 300;
+    color: var(--text-muted);
+    font-size: clamp(16px, 1.4vw, 19px);
+    line-height: 1.65;
+    max-width: 460px;
+    margin: 0 auto 56px;
+  }
+
+  .landscape {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    line-height: 0;
+  }
+  .landscape img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+  }
+
+  @media (max-width: 480px) {
+    .stage {
+      padding-top: clamp(40px, 8vh, 80px);
+      padding-bottom: clamp(160px, 22vh, 240px);
+    }
+    .body-copy { padding: 0 8px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-content,
+    .fade-landscape {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+  <section class="stage" aria-labelledby="page-heading">
+
+    <header class="brand fade-content">
+      <img class="logo" src="assets/daylith-logo-full.png" alt="Daylith — Your morning, elevated." />
+    </header>
+
+    <h1 id="page-heading" class="fade-content delay-3">Coming&nbsp;Soon</h1>
+
+    <hr class="divider fade-content delay-4" />
+
+    <p class="body-copy fade-content delay-4">
+      We're crafting a mindful experience<br/>
+      to elevate your every day.
+    </p>
+
+  </section>
+</main>
+
+<div class="landscape fade-landscape" aria-hidden="true">
+  <img src="assets/daylith-coming-soon-bg.png" alt="" />
+</div>
+
+</body>
+</html>
